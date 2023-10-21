@@ -59,3 +59,50 @@ It requires billing, so you have to specify your billing account for the project
 After you select your billing account, you can enable the Compute Engine API.
 
 App engine does not require credentials, so no need to click on the "Create credentials" button.
+
+You have to enable cloud build API as well.
+go to https://console.developers.google.com/apis/library/cloudbuild.googleapis.com and enable it.
+
+I'll build two simple services based on go fiber
+
+### First install Fiber
+
+```sh
+go get -u github.com/gofiber/fiber
+```
+
+then the simple service code will be
+
+```go
+package main
+
+import (
+    "log"
+
+    "github.com/gofiber/fiber/v2"
+)
+
+func main() {
+    app := fiber.New()
+
+    app.Get("/", func (c *fiber.Ctx) error {
+        return c.SendString("Hello, World!")
+    })
+
+    log.Fatal(app.Listen(":3000"))
+}
+```
+
+Before you deploy, you need a app-engine-go component
+
+to install it:
+
+```sh
+gcloud components install app-engine-go
+```
+
+before you may need to update gcloud cli:
+
+```sh
+gcloud components update
+```

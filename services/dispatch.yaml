@@ -1,6 +1,5 @@
 dispatch:
-  - url: "*/login"
+  - url: "*/login*"
     service: logger
   - url: "*/*"
-    service: broker
-```
+    service: default
