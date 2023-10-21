@@ -1,0 +1,6 @@
+dispatch:
+  - url: "*/login"
+    service: logger
+  - url: "*/*"
+    service: broker
+```
