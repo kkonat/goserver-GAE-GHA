@@ -1,0 +1,42 @@
+name: Go
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Go 1.21.x
+        uses: actions/setup-go@v4
+        with:
+          go-version: "1.21.x"
+
+      - name: Install dependencies
+        run: |
+          go get github.com/gofiber/fiber/v2
+
+      # authenticate with GCP
+      - id: "auth"
+        name: "Authenticate with GCP"
+        uses: "google-github-actions/auth@v1"
+        with:
+          credentials_json: "${{ secrets.GCP_CREDENTIALS }}"
+
+      - name: Build
+        run: |
+          go build -v ./broker
+          go build -v ./logger
+
+      - name: "Set up Cloud SDK"
+        uses: "google-github-actions/setup-gcloud@v1"
+        with:
+          version: ">= 363.0.0"
+
+      - name: "Deploy to App Engine"
+        run: "gcloud app deploy ./broker/app.yaml ./logger/app.yaml dispatch.yaml --quiet"
