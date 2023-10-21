@@ -19,7 +19,10 @@ jobs:
 
       - name: Install dependencies
         run: |
-          go get github.com/gofiber/fiber/v2
+          cd broker
+          go get
+          cd ../logger
+          go get
 
       # authenticate with GCP
       - id: "auth"
