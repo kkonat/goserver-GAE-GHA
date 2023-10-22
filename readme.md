@@ -106,3 +106,13 @@ before you may need to update gcloud cli:
 ```sh
 gcloud components update
 ```
+
+Enable App Engine Admin API for the project
+https://console.cloud.google.com/apis/library/appengine.googleapis.com
+
+
+
+
+
+References:
+1. https://github.com/google-github-actions/deploy-appengine#inputs

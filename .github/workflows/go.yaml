@@ -24,6 +24,9 @@ jobs:
         with:
           credentials_json: "${{ secrets.GCP_CREDENTIALS }}"
 
+      # - run: gcloud components update
+      # - run: gcloud components install app-engine-go
+
       - name: "Deploy to App Engine"
         id: deploy
         uses: google-github-actions/deploy-appengine@v1
